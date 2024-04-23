@@ -6,11 +6,11 @@ from calibration import calib, undistort
 from threshold import gradient_combine, hls_combine, comb_result
 from finding_lines import Line, warp_image, find_LR_lines, draw_lane, print_road_status, print_road_map
 from skimage import exposure
-input_type = 'image' #'video' # 'image'
-input_name = "test_images/highway.png" #'test_images/straight_lines1.jpg' # 'challenge_video.mp4'
+# input_type = 'image' #'video' # 'image'
+# input_name = "test_images/highway.png" #'test_images/straight_lines1.jpg' # 'challenge_video.mp4'
 
-# input_type = 'video'
-# input_name = "file3.mp4"
+input_type = 'video'
+input_name = "file6.mp4"
 
 left_line = Line()
 right_line = Line()
