@@ -49,6 +49,8 @@ def rad_of_curvature(left_line, right_line):
     width_lanes = abs(right_line.startx - left_line.startx)
     ym_per_pix = 30 / 720  # meters per pixel in y dimension
     xm_per_pix = 3.7*(720/1280) / width_lanes  # meters per pixel in x dimension
+    # Assuming image is of 1080*720
+    # 3.7 meters is the standard width of a lane in the INDIA
 
     # Define y-value where we want radius of curvature
     # the maximum y-value, corresponding to the bottom of the image
@@ -301,7 +303,7 @@ def find_LR_lines(binary_img, left_line, right_line):
     else:
         return prev_window_refer(binary_img, left_line, right_line)
 
-def draw_lane(img, left_line, right_line, lane_color=(255, 0, 255), road_color=(0, 255, 0)):
+def draw_lane(img, left_line, right_line, lane_color=(3, 40, 252), road_color=(252, 20, 3)):
     """ draw lane lines & current driving space """
     window_img = np.zeros_like(img)
 
