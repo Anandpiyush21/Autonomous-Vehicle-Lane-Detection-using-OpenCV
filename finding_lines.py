@@ -341,12 +341,12 @@ def road_info(left_line, right_line):
 
     direction = ((left_line.endx - left_line.startx) + (right_line.endx - right_line.startx)) / 2
 
-    if curvature > 2000 and abs(direction) < 100:
+    if curvature > 1500 and abs(direction) < 100:
         road_inf = 'No Curve'
         curvature = -1
-    elif curvature <= 2000 and direction < - 50:
+    elif curvature <= 1500 and direction < - 50:
         road_inf = 'Left Curve'
-    elif curvature <= 2000 and direction > 50:
+    elif curvature <= 1050 and direction > 50:
         road_inf = 'Right Curve'
     else:
         if left_line.road_inf != None:
@@ -375,7 +375,7 @@ def road_info(left_line, right_line):
 def print_road_status(img, left_line, right_line):
     """ print road status (curve direction, radius of curvature, deviation) """
     road_inf, curvature, deviation = road_info(left_line, right_line)
-    cv2.putText(img, 'Road Status', (22, 30), cv2.FONT_HERSHEY_COMPLEX, 0.7, (80, 80, 80), 2)
+    cv2.putText(img, 'Road Status', (22, 30), cv2.FONT_HERSHEY_COMPLEX, 0.7, (0, 0, 0), 2)
 
     lane_inf = 'Lane Info : ' + road_inf
     if curvature == -1:
@@ -384,15 +384,15 @@ def print_road_status(img, left_line, right_line):
         lane_curve = 'Curvature : {0:0.3f}m'.format(curvature)
     deviate = 'Deviation : ' + deviation
 
-    cv2.putText(img, lane_inf, (10, 63), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (100, 100, 100), 1)
-    cv2.putText(img, lane_curve, (10, 83), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (100, 100, 100), 1)
-    cv2.putText(img, deviate, (10, 103), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (100, 100, 100), 1)
+    cv2.putText(img, lane_inf, (10, 50), cv2.FONT_HERSHEY_COMPLEX, 0.45, (0, 0, 0), 1)
+    cv2.putText(img, lane_curve, (10, 65), cv2.FONT_HERSHEY_COMPLEX, 0.45, (0, 0, 0), 1)
+    cv2.putText(img, deviate, (10, 80), cv2.FONT_HERSHEY_COMPLEX, 0.45, (0, 0, 0), 1)
 
     return img
 
 def print_road_map(image, left_line, right_line):
     """ print simple road map """
-    img = cv2.imread('images/top_view_car.png', -1)
+    img = cv2.imread('cartoon.png', -1)
     img = cv2.resize(img, (120, 246))
 
     rows, cols = image.shape[:2]
