@@ -393,7 +393,7 @@ def print_road_status(img, left_line, right_line):
 def print_road_map(image, left_line, right_line):
     """ print simple road map """
     img = cv2.imread('cartoon.png', -1)
-    img = cv2.resize(img, (120, 246))
+    img = cv2.resize(img, (120, 800))
 
     rows, cols = image.shape[:2]
     window_img = np.zeros_like(image)
@@ -424,7 +424,7 @@ def print_road_map(image, left_line, right_line):
     pts = np.hstack((pts_left, pts_right))
 
     # Draw the lane onto the warped blank image
-    cv2.fillPoly(window_img, np.int32([pts]), (0, 160, 0))
+    cv2.fillPoly(window_img, np.int32([pts]), (0, 160, 160))
 
     #window_img[10:133,300:360] = img
     road_map = Image.new('RGBA', image.shape[:2], (0, 0, 0, 0))
