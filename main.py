@@ -6,11 +6,11 @@ from calibration import calib, undistort
 from threshold import gradient_combine, hls_combine, comb_result
 from finding_lines import Line, warp_image, find_LR_lines, draw_lane, print_road_status, print_road_map
 from skimage import exposure
-# input_type = 'image' # 'image'
-# input_name = "test_images/highway.jpeg" 
+input_type = 'image' # 'image'
+input_name = "test_images/test.jpg" 
 
-input_type = 'video'
-input_name = "file3.mp4"
+# input_type = 'video'
+# input_name = "file3.mp4"
 
 left_line = Line()
 right_line = Line()
@@ -68,10 +68,10 @@ if __name__ == '__main__':
             rows, cols = undist_img.shape[:2]
 
             combined_gradient = gradient_combine(undist_img, th_sobelx, th_sobely, th_mag, th_dir)
-            #cv2.imshow('gradient combined image', combined_gradient)
+            # cv2.imshow('gradient combined image', combined_gradient)
 
             combined_hls = hls_combine(undist_img, th_h, th_l, th_s)
-            #cv2.imshow('HLS combined image', combined_hls)
+            # cv2.imshow('HLS combined image', combined_hls)
 
             combined_result = comb_result(combined_gradient, combined_hls)
 
@@ -83,13 +83,13 @@ if __name__ == '__main__':
             dst = np.float32([(170, 720), (170, 0), (550, 0), (550, 720)])
 
             warp_img, M, Minv = warp_image(combined_result, src, dst, (720, 720))
-            #cv2.imshow('warp', warp_img)
+            # cv2.imshow('warp', warp_img)
 
             searching_img = find_LR_lines(warp_img, left_line, right_line)
-            #cv2.imshow('LR searching', searching_img)
+            # cv2.imshow('LR searching', searching_img)
 
             w_comb_result, w_color_result = draw_lane(searching_img, left_line, right_line)
-            #cv2.imshow('w_comb_result', w_comb_result)
+            # cv2.imshow('w_comb_result', w_comb_result)
 
             # Drawing the lines back down onto the road
             color_result = cv2.warpPerspective(w_color_result, Minv, (c_cols, c_rows))
@@ -98,7 +98,7 @@ if __name__ == '__main__':
 
             # Combine the result with the original image
             result = cv2.addWeighted(undist_img, 1, lane_color, 0.3, 0)
-            #cv2.imshow('result', result.astype(np.uint8))
+            # cv2.imshow('result', result.astype(np.uint8))
 
             info, info2 = np.zeros_like(result),  np.zeros_like(result)
             info = cv2.addWeighted(result, 1, info, 0.2, 0)
@@ -106,7 +106,7 @@ if __name__ == '__main__':
             road_map = print_road_map(w_color_result, left_line, right_line)
             info2[10:105, cols-106:cols-11] = road_map
             info2 = print_road_status(info2, left_line, right_line)
-            cv2.imshow('road info', info2)
+            # cv2.imshow('road info', info2)
 
             # out.write(frame)
             if cv2.waitKey(1) & 0xFF == ord('s'):
