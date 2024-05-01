@@ -6,11 +6,11 @@ from calibration import calib, undistort
 from threshold import gradient_combine, hls_combine, comb_result
 from finding_lines import Line, warp_image, find_LR_lines, draw_lane, print_road_status, print_road_map
 from skimage import exposure
-input_type = 'image' # 'image'
-input_name = "test_images/test.jpg" 
+# input_type = 'image' # 'image'
+# input_name = "test_images/test.jpg" 
 
-# input_type = 'video'
-# input_name = "file3.mp4"
+input_type = 'video'
+input_name = "file1.mp4"
 
 left_line = Line()
 right_line = Line()
@@ -106,7 +106,7 @@ if __name__ == '__main__':
             road_map = print_road_map(w_color_result, left_line, right_line)
             info2[10:105, cols-106:cols-11] = road_map
             info2 = print_road_status(info2, left_line, right_line)
-            # cv2.imshow('road info', info2)
+            cv2.imshow('road info', info2)
 
             # out.write(frame)
             if cv2.waitKey(1) & 0xFF == ord('s'):

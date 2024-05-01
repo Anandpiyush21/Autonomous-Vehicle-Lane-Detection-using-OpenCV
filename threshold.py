@@ -112,5 +112,5 @@ def comb_result(grad, hls):
     result = np.zeros_like(hls).astype(np.uint8)
     result[(grad > 1)] = 100
     result[(hls > 1)] = 255
-    cv2.imshow('Resylt!!!',result)
+    # cv2.imshow('Resylt!!!',result)
     return result
