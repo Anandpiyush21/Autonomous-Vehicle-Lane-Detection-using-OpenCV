@@ -29,7 +29,7 @@ class Line:
         self.deviation = None
 
 def warp_image(img, src, dst, size):
-    """ Perspective Transform """
+    #  Perspective Transform 
     M = cv2.getPerspectiveTransform(src, dst)
     Minv = cv2.getPerspectiveTransform(dst, src)
     warp_img = cv2.warpPerspective(img, M, size, flags=cv2.INTER_LINEAR)
@@ -37,7 +37,7 @@ def warp_image(img, src, dst, size):
     return warp_img, M, Minv
 
 def rad_of_curvature(left_line, right_line):
-    """ measure radius of curvature  """
+    #  measure radius of curvature  
 
     ploty = left_line.ally
     leftx, rightx = left_line.allx, right_line.allx
@@ -82,10 +82,10 @@ def smoothing(lines, pre_lines=3):
     return avg_line
 
 def blind_search(b_img, left_line, right_line):
-    """
-    blind search - first frame, lost lane lines
-    using histogram & sliding window
-    """
+    
+    # blind search - first frame, lost lane lines
+    # using histogram & sliding window
+    
     # Take a histogram of the bottom half of the image
     histogram = np.sum(b_img[int(b_img.shape[0] / 2):, :], axis=0)
 
@@ -207,9 +207,9 @@ def blind_search(b_img, left_line, right_line):
     return output
 
 def prev_window_refer(b_img, left_line, right_line):
-    """
-    refer to previous window info - after detecting lane lines in previous frame
-    """
+    
+    # refer to previous window info - after detecting lane lines in previous frame
+    
     # Create an output image to draw on and  visualize the result
     output = np.dstack((b_img, b_img, b_img)) * 255
 
@@ -290,11 +290,11 @@ def prev_window_refer(b_img, left_line, right_line):
     return output
 
 def find_LR_lines(binary_img, left_line, right_line):
-    """
-    find left, right lines & isolate left, right lines
-    blind search - first frame, lost lane lines
-    previous window - after detecting lane lines in previous frame
-    """
+    
+    # find left, right lines & isolate left, right lines
+    # blind search - first frame, lost lane lines
+    # previous window - after detecting lane lines in previous frame
+    
 
     # if don't have lane lines info
     if left_line.detected == False:
@@ -304,7 +304,7 @@ def find_LR_lines(binary_img, left_line, right_line):
         return prev_window_refer(binary_img, left_line, right_line)
 
 def draw_lane(img, left_line, right_line, lane_color=(3, 40, 252), road_color=(252, 20, 3)):
-    """ draw lane lines & current driving space """
+    #  draw lane lines & current driving space 
     window_img = np.zeros_like(img)
 
     window_margin = left_line.window_margin
@@ -336,7 +336,7 @@ def draw_lane(img, left_line, right_line, lane_color=(3, 40, 252), road_color=(2
     return result, window_img
 
 def road_info(left_line, right_line):
-    """ print road information onto result image """
+    #  print road information onto result image 
     curvature = (left_line.radius_of_curvature + right_line.radius_of_curvature) / 2
 
     direction = ((left_line.endx - left_line.startx) + (right_line.endx - right_line.startx)) / 2
@@ -373,7 +373,7 @@ def road_info(left_line, right_line):
     return road_inf, curvature, deviation
 
 def print_road_status(img, left_line, right_line):
-    """ print road status (curve direction, radius of curvature, deviation) """
+    #  print road status (curve direction, radius of curvature, deviation) 
     road_inf, curvature, deviation = road_info(left_line, right_line)
     cv2.putText(img, 'Road Status', (22, 30), cv2.FONT_HERSHEY_COMPLEX, 0.7, (0, 0, 0), 2)
 
@@ -391,7 +391,7 @@ def print_road_status(img, left_line, right_line):
     return img
 
 def print_road_map(image, left_line, right_line):
-    """ print simple road map """
+    #  print simple road map 
     img = cv2.imread('cartoon.png', -1)
     img = cv2.resize(img, (120, 800))
 

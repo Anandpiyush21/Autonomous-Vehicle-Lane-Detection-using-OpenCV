@@ -2,14 +2,11 @@ import numpy as np
 import cv2
 
 def sobel_xy(img, orient='x', thresh=(20, 100)):
-    """
-    Define a function that applies Sobel x or y.
-    The gradient in the x-direction emphasizes edges closer to vertical.
-    The gradient in the y-direction emphasizes edges closer to horizontal.
-    """
-    # img = exposure.equalize_hist(img)
-    # adaptive histogram equalization
-    # img = exposure.equalize_adapthist(img, clip_limit=0.01)
+    
+    # Define a function that applies Sobel x or y.
+    # The gradient in the x-direction emphasizes edges closer to vertical.
+    # The gradient in the y-direction emphasizes edges closer to horizontal.
+    
 
     if orient == 'x':
         abs_sobel = np.absolute(cv2.Sobel(img, cv2.CV_64F, 1, 0))
@@ -24,13 +21,9 @@ def sobel_xy(img, orient='x', thresh=(20, 100)):
     return binary_output
 
 def mag_thresh(img, sobel_kernel=3, mag_thresh=(0, 255)):
-    """
-    Define a function to return the magnitude of the gradient
-    for a given sobel kernel size and threshold values
-    """
-
-    # adaptive histogram equalization
-    # img = exposure.equalize_adapthist(img, clip_limit=0.01)
+    
+    # Define a function to return the magnitude of the gradient
+    # for a given sobel kernel size and threshold values
 
     # Take both Sobel x and y gradients
     sobelx = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=sobel_kernel)
@@ -48,9 +41,9 @@ def mag_thresh(img, sobel_kernel=3, mag_thresh=(0, 255)):
     return binary_output
 
 def dir_thresh(img, sobel_kernel=3, thresh=(0.7, 1.3)):
-    """
-    computes the direction of the gradient
-    """
+   
+    # computes the direction of the gradient
+   
     # Calculate the x and y gradients
     sobelx = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=sobel_kernel)
     sobely = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=sobel_kernel)
@@ -68,9 +61,9 @@ def ch_thresh(ch, thresh=(80, 255)):
     return binary
 
 def gradient_combine(img, th_x, th_y, th_mag, th_dir):
-    """
-    Find lane lines with gradient information of Red channel
-    """
+   
+    # Find lane lines with gradient information of Red channel
+
     rows, cols = img.shape[:2]
     R = img[220:rows - 12, 0:cols, 2]
 
@@ -115,9 +108,8 @@ def hls_combine(img, th_h, th_l, th_s):
     return hls_comb
 
 def comb_result(grad, hls):
-    """ give different value to distinguish them """
+    #  give different value to distinguish them 
     result = np.zeros_like(hls).astype(np.uint8)
-    #result[((grad > 1) | (hls > 1))] = 255
     result[(grad > 1)] = 100
     result[(hls > 1)] = 255
 
