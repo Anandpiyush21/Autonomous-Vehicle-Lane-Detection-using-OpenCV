@@ -13,8 +13,8 @@ def sobel_xy(img, orient='x', thresh=(20, 100)):
     if orient == 'y':
         abs_sobel = np.absolute(cv2.Sobel(img, cv2.CV_64F, 0, 1))
     # Rescale back to 8 bit integer
-    scaled_sobel = np.uint8(255*abs_sobel/np.max(abs_sobel))
-    binary_output = np.zeros_like(scaled_sobel)
+    scaled_sobel = np.uint8(255*abs_sobel/np.max(abs_sobel)) # rescales the absolute Sobel values to 8-bit integer range (0-255)
+    binary_output = np.zeros_like(scaled_sobel) 
     binary_output[(scaled_sobel >= thresh[0]) & (scaled_sobel <= thresh[1])] = 255
 
     # Return the result
