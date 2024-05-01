@@ -68,43 +68,43 @@ def gradient_combine(img, th_x, th_y, th_mag, th_dir):
     R = img[220:rows - 12, 0:cols, 2]
 
     sobelx = sobel_xy(R, 'x', th_x)
-    #cv2.imshow('sobel_x', sobelx)
+    # cv2.imshow('sobel_x', sobelx)
     sobely = sobel_xy(R, 'y', th_y)
-    #cv2.imshow('sobel_y', sobely)
+    # cv2.imshow('sobel_y', sobely)
     mag_img = mag_thresh(R, 3, th_mag)
-    #cv2.imshow('sobel_mag', mag_img)
+    # cv2.imshow('sobel_mag', mag_img)
     dir_img = dir_thresh(R, 15, th_dir)
-    #cv2.imshow('result5', dir_img)
+    # cv2.imshow('result5', dir_img)
 
     # combine gradient measurements
     gradient_comb = np.zeros_like(dir_img).astype(np.uint8)
     gradient_comb[((sobelx > 1) & (mag_img > 1) & (dir_img > 1)) | ((sobelx > 1) & (sobely > 1))] = 255
-
+    # cv2.imshow('gradient_comb', gradient_comb)
     return gradient_comb
 
 def hls_combine(img, th_h, th_l, th_s):
     # convert to hls color space
-    hls = cv2.cvtColor(img, cv2.COLOR_BGR2HLS)
-
+    hls = cv2.cvtColor(img, cv2.COLOR_BGR2HLS)  #(Hue, Lightness, Saturation)
+    # cv2.imshow('hls', hls)
     rows, cols = img.shape[:2]
     R = img[220:rows - 12, 0:cols, 2]
+    # cv2.imshow('img', R)
     _, R = cv2.threshold(R, 180, 255, cv2.THRESH_BINARY)
-    #cv2.imshow('red!!!',R)
+    # cv2.imshow('red!!!',R)
     H = hls[220:rows - 12, 0:cols, 0]
     L = hls[220:rows - 12, 0:cols, 1]
     S = hls[220:rows - 12, 0:cols, 2]
 
     h_img = ch_thresh(H, th_h)
-    #cv2.imshow('HLS (H) threshold', h_img)
+    # cv2.imshow('HLS (H) threshold', h_img)
     l_img = ch_thresh(L, th_l)
-    #cv2.imshow('HLS (L) threshold', l_img)
+    # cv2.imshow('HLS (L) threshold', l_img)
     s_img = ch_thresh(S, th_s)
-    #cv2.imshow('HLS (S) threshold', s_img)
+    # cv2.imshow('HLS (S) threshold', s_img)
 
     # Two cases - lane lines in shadow or not
     hls_comb = np.zeros_like(s_img).astype(np.uint8)
-    hls_comb[((s_img > 1) & (l_img == 0)) | ((s_img == 0) & (h_img > 1) & (l_img > 1))] = 255 # | (R > 1)] = 255
-    #hls_comb[((s_img > 1) & (h_img > 1)) | (R > 1)] = 255
+    hls_comb[((s_img > 1) & (l_img == 0)) | ((s_img == 0) & (h_img > 1) & (l_img > 1))] = 255 
     return hls_comb
 
 def comb_result(grad, hls):
@@ -112,5 +112,5 @@ def comb_result(grad, hls):
     result = np.zeros_like(hls).astype(np.uint8)
     result[(grad > 1)] = 100
     result[(hls > 1)] = 255
-
+    cv2.imshow('Resylt!!!',result)
     return result
