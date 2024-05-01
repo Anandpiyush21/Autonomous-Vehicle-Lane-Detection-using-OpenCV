@@ -303,7 +303,7 @@ def find_LR_lines(binary_img, left_line, right_line):
     else:
         return prev_window_refer(binary_img, left_line, right_line)
 
-def draw_lane(img, left_line, right_line, lane_color=(3, 40, 252), road_color=(252, 20, 3)):
+def draw_lane(img, left_line, right_line, lane_color=(255, 0, 0), road_color=(0, 255, 0)):
     #  draw lane lines & current driving space 
     window_img = np.zeros_like(img)
 

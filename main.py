@@ -6,11 +6,11 @@ from calibration import calib, undistort
 from threshold import gradient_combine, hls_combine, comb_result
 from finding_lines import Line, warp_image, find_LR_lines, draw_lane, print_road_status, print_road_map
 from skimage import exposure
-# input_type = 'image' # 'image'
-# input_name = "test_images/test.jpg" 
+input_type = 'image' # 'image'
+input_name = "test_images/wolanes.jpg" 
 
-input_type = 'video'
-input_name = "file1.mp4"
+# input_type = 'video'
+# input_name = "file7.mp4"
 
 left_line = Line()
 right_line = Line()
@@ -30,9 +30,12 @@ if __name__ == '__main__':
         undist_img = cv2.resize(undist_img, None, fx=1 / 2, fy=1 / 2, interpolation=cv2.INTER_AREA)
         rows, cols = undist_img.shape[:2]
 
+        cv2.imshow("Undist",undist_img)
         combined_gradient = gradient_combine(undist_img, th_sobelx, th_sobely, th_mag, th_dir)
         combined_hls = hls_combine(undist_img, th_h, th_l, th_s)
         combined_result = comb_result(combined_gradient, combined_hls)
+        cv2.imshow("Undist",undist_img)
+
 
         c_rows, c_cols = combined_result.shape[:2]
         s_LTop2, s_RTop2 = [c_cols / 2 - 24, 5], [c_cols / 2 + 24, 5]
