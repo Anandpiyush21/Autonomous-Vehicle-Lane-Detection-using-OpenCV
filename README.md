@@ -4,7 +4,6 @@
 
 **Real-time lane detection, curvature estimation and steering guidance built with classical computer vision (OpenCV).**
 
-[![CI](https://github.com/Anandpiyush21/Autonomous-Vehicle-Lane-Detection-using-OpenCV/actions/workflows/ci.yml/badge.svg)](https://github.com/Anandpiyush21/Autonomous-Vehicle-Lane-Detection-using-OpenCV/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.9%2B-3776AB?logo=python&logoColor=white)
 ![OpenCV](https://img.shields.io/badge/OpenCV-4.x-5C3EE8?logo=opencv&logoColor=white)
 ![NumPy](https://img.shields.io/badge/NumPy-013243?logo=numpy&logoColor=white)
