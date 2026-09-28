@@ -1,0 +1,4 @@
+-r requirements.txt
+pillow>=9.1  # scripts/make_readme_assets.py
+pytest>=7
+ruff>=0.4

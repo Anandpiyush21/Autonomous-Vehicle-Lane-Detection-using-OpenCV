@@ -1,0 +1,24 @@
+[project]
+name = "lane-detection"
+version = "2.0.0"
+description = "Lane detection for autonomous vehicles with classical computer vision (OpenCV)"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = ["opencv-python>=4.5", "numpy>=1.21"]
+
+[project.scripts]
+lane-detect = "lane_detection.cli:main"
+
+[tool.setuptools]
+packages = ["lane_detection"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+extend-exclude = ["myvenv"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B"]
